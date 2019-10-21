@@ -1,8 +1,7 @@
-Breakpoint 1 at 0x276: file source/main.c, line 116.
+Breakpoint 1 at 0x2ac: file source/main.c, line 114.
 Note: automatically using hardware breakpoints for read-only addresses.
-A debugging session is active.
+======================================================
+Running all tests..."
 
-	Inferior 1 [Remote target] will be detached.
-
-Quit anyway? (y or n) Detaching from program: /home/csmajs/yxing024/Desktop/lab6/ex1/build/objects/main.elf, Remote target
+"PORTC:0x00 , 0x01 , 0x02 , 0x04 , 0x01"..."PORTC:0x01 , 0x02 , 0x04 "...======================================================
 Quitting: Remote doesn't know how to detach

@@ -39,7 +39,6 @@ void TimerOff()
 void TimerISR()
 {
   TimerFlag = 1;
-
 }
 
 ISR(TIMER1_COMPA_vect)
@@ -58,75 +57,66 @@ void TimerSet(unsigned long M)
   _avr_timer_cntcurr = _avr_timer_M;
 }
 
-/*enum states { on} state;
-
+enum states {start, init, on} state;
+  unsigned char tmpC = 0x00;
+  unsigned char out = 0x00;
 
 Tick_blink()
 {
 
-  unsigned char i = 0x00;
-
-  unsigned char tmp = 0x00;
-
   switch(state)
     {
     case start:
-      state = init;
+      state = init; 
       break;
     case init:
       state = on;
-     
       break;
     case on:
       state = on;
-      i++;
       break;
     default:
-      state = start;
       break;
     }
   switch(state)
     {
+    case start:
+      break;
     case init:
-      i = 0;
+      tmpC = out = 0x01;
       break;
     case on:
-      if (i == 3){i = 0;}
-      tmp = (1 << i);
+      tmpC = out = (out == 0x04)?0x01:out<<1;
       break;
-
     default:
       break;
     }
-  PORTC = tmp;
+  PORTC = tmpC;
   return state;
 }
 
-*/
-int main(void)
+
+void main()
 {
     
-  DDRC = 0xFF;
+  DDRC = 0xff;
   PORTC = 0x00;
  
-  TimerSet(1000);
+  tmpC = 0x00;
+  state = start;
+
+  TimerSet(200);
   TimerOn();
   
+
  
  
   while(1)
     {
-      //Tick_blink();
-      unsigned char  tmp = 0x00;
-      unsigned char i = 0;
-      tmp = (1<<i);
-      PORTC = tmp;
-      if( i < 3 ){i++;}
-      else { i = 0;}
-    
+      Tick_blink();
       while (!TimerFlag);
       TimerFlag = 0;
     }
    
-    return 1;
+  //return 1;
 }
